@@ -81,20 +81,35 @@ def create_zone(name, ttl):
     }
     return request.post("/zones", json=_json)
 
-def delete_zone(_id):
+def delete_zone_by_id(_id):
     return request.delete("/zones/%s" % (_id))
 
 def delete_zone_by_name(name):
     _id = get_zone_id_by_name(name)
-    return delete_zone(_id)
+    return delete_zone_by_id(_id)
+
+###########
+# RECORDS #
+###########
 
 def get_all_records():
     return request.get("/records")
 
-def get_one_record(record_id):
+def get_record_by_name(name):
+    records = get_all_records().get("records")
+    for record in records:
+        if record["name"] == name:
+            return record
+    raise RecordNotExistException("Record %s does not exist." % (name))
+
+def get_record_id_by_name(name):
+    record = get_record_by_name(name)
+    return record["id"]
+
+def get_record_by_id(_id):
     return request.get("/records/%s" % (record_id), "GET")
 
-def create_record(name, _type, value, ttl, zone_name):
+def create_record(name=None, _type=None, value=None, ttl=3600, zone_name=None):
     zone_id = get_zone_id_by_name(zone_name)
     _json = {
         "value": value, # e.g. ip address
@@ -105,3 +120,10 @@ def create_record(name, _type, value, ttl, zone_name):
     }
     req = request.post("/records", json=_json)
     return req
+
+def delete_record_by_id(_id):
+    return request.delete("/records/%s" % (_id))
+
+def delete_record_by_name(name):
+    _id = get_record_id_by_name(name)
+    return delete_record_by_id(_id)

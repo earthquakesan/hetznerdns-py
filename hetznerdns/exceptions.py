@@ -21,3 +21,8 @@ class PostRequestException(Exception):
 class DeleteRequestException(Exception):
     def __init__(self, message):
         Exception.__init__(self, message)
+
+class RecordNotExistException(Exception):
+    def __init__(self, message):
+        Exception.__init__(self, message)
+
