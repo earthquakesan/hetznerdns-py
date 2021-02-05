@@ -125,9 +125,20 @@ def record_create(name, _type, value, ttl, zone_name):
         )
     )
 
+@click.command(name="delete")
+@click.option(
+    "--name",
+    type=click.STRING,
+    required=True,
+    help="Name of the record, e.g. www"
+)
+def record_delete(name):
+    delete_record_by_name(name)
+
 record.add_command(records_list)
 record.add_command(record_get)
 record.add_command(record_create)
+record.add_command(record_delete)
 cli.add_command(record)
 
 if __name__ == "__main__":
