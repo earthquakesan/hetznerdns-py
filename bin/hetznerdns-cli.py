@@ -1,0 +1,134 @@
+import click
+from hetznerdns.api import *
+
+@click.group()
+def cli():
+    pass
+
+#########
+# ZONES #
+#########
+
+@click.group()
+def zone():
+    pass
+
+@click.command(name="list")
+def zone_list():
+    click.echo(get_all_zones())
+
+@click.command(name="get")
+@click.option(
+    "--name",
+    type=click.STRING,
+    required=True,
+    help="Name of the DNS Zone."
+)
+def zone_get(name):
+    click.echo(get_zone_by_name(name))
+
+@click.command(name="create")
+@click.option(
+    "--name",
+    type=click.STRING,
+    required=True,
+    help="Name of the DNS Zone."    
+)
+@click.option(
+    "--ttl",
+    type=click.INT,
+    default=3600,
+    help="TTL value for the DNS Zone."    
+)
+def zone_create(name, ttl):
+    create_zone(name, ttl)
+
+@click.command(name="delete")
+@click.option(
+    "--name",
+    type=click.STRING,
+    required=True,
+    help="Name of the DNS Zone."    
+)
+def zone_delete(name):
+    delete_zone_by_name(name)
+
+
+zone.add_command(zone_list)
+zone.add_command(zone_get)
+zone.add_command(zone_create)
+zone.add_command(zone_delete)
+cli.add_command(zone)
+
+###########
+# RECORDS #
+###########
+
+@click.group()
+def record():
+    pass
+
+@click.command(name="list")
+def records_list():
+    click.echo(get_all_records())
+
+@click.command(name="get")
+@click.option(
+    "--name",
+    type=click.STRING,
+    required=True,
+    help="Name of the record, e.g. www"
+)
+def record_get(name):
+    click.echo(get_record_by_name(name))
+
+@click.command(name="create")
+@click.option(
+    "--name",
+    type=click.STRING,
+    required=True,
+    help="Name of the record, e.g. www"    
+)
+@click.option(
+    "--type",
+    "_type",
+    type=click.STRING,
+    required=True,
+    help="Type of the record, e.g. A, AAAA, NS etc."    
+)
+@click.option(
+    "--value",
+    type=click.STRING,
+    required=True,
+    help="Value of the record, e.g. IPv4 for A records, IPv6 for AAAA records etc."    
+)
+@click.option(
+    "--ttl",
+    default=3600,
+    type=click.STRING,
+    help="TTL of the record."    
+)
+@click.option(
+    "--zone-name",
+    type=click.STRING,
+    required=True,
+    help="Zone name, where record should be created, e.g. example.com."    
+)
+def record_create(name, _type, value, ttl, zone_name):
+    click.echo(
+        create_record(
+            name=name,
+            _type=_type,
+            value=value,
+            ttl=ttl,
+            zone_name=zone_name
+        )
+    )
+
+record.add_command(records_list)
+record.add_command(record_get)
+record.add_command(record_create)
+cli.add_command(record)
+
+if __name__ == "__main__":
+    cli()
