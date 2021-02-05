@@ -7,9 +7,9 @@ with open("README.md", "r") as fh:
 setuptools.setup(
     name="hetznerdns",
     version="1.0.0",
-    author="",
-    author_email="",
-    description="A package that makes it easy to create Pypi packages",
+    author="Ivan Ermilov",
+    author_email="ivan.s.ermilov@gmail.com",
+    description="An API and CLI client for Hetzner DNS service.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="",

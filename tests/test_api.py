@@ -36,14 +36,14 @@ class TestRecords(unittest.TestCase):
             ttl=self.record_ttl,
             zone_name=self.zone_name
         )
-        record = get_record_by_name(self.record_name)
+        record = get_record_by_name(self.record_name, self.zone_name)
         self.assertEqual(record['type'], self.record_type)
         self.assertEqual(record['name'], self.record_name)
         self.assertEqual(record['value'], self.record_value)
         self.assertEqual(record['ttl'], self.record_ttl)
-        delete_record_by_name(self.record_name)
+        delete_record_by_name(self.record_name, self.zone_name)
         with self.assertRaises(RecordNotExistException):
-            get_record_by_name(self.record_name)
+            get_record_by_name(self.record_name, self.zone_name)
 
     def tearDown(self):
         # Delete testing zone

@@ -94,15 +94,16 @@ def delete_zone_by_name(name):
 def get_all_records():
     return request.get("/records")
 
-def get_record_by_name(name):
+def get_record_by_name(name, zone_name):
+    zone_id = get_zone_id_by_name(zone_name)
     records = get_all_records().get("records")
     for record in records:
-        if record["name"] == name:
+        if record["name"] == name and record["zone_id"] == zone_id:
             return record
     raise RecordNotExistException("Record %s does not exist." % (name))
 
-def get_record_id_by_name(name):
-    record = get_record_by_name(name)
+def get_record_id_by_name(name, zone_name):
+    record = get_record_by_name(name, zone_name)
     return record["id"]
 
 def get_record_by_id(_id):
@@ -123,6 +124,6 @@ def create_record(name=None, _type=None, value=None, ttl=3600, zone_name=None):
 def delete_record_by_id(_id):
     return request.delete("/records/%s" % (_id))
 
-def delete_record_by_name(name):
-    _id = get_record_id_by_name(name)
+def delete_record_by_name(name, zone_name):
+    _id = get_record_id_by_name(name, zone_name)
     return delete_record_by_id(_id)
