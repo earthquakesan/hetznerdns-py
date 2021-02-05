@@ -7,12 +7,10 @@ An API and CLI tools for Hetzner DNS. It is work in progress, the functionality 
 * [API Docs](https://dns.hetzner.com/api-docs/)
 * [Access Endpoint](https://dns.hetzner.com)
 
-## Development
+## Installation
 
 ```
-pip install -e .
-pip install -r requirements-dev.txt
-make test
+pip install hetznerdns
 ```
 
 ## Usage
@@ -41,4 +39,14 @@ $ hetznerdns-cli record get --name www --zone-name ermilov.org
 {'id': '1ed054dbcc1b6445f10e5a86a6f9539b', 'type': 'A', 'name': 'www', 'value': '127.0.0.1', 'ttl': 3600, 'zone_id': 'tfJ9nMJckFAV7LBghxWTNB', 'created': '2021-02-05 12:58:39.63 +0000 UTC', 'modified': '2021-02-05 12:58:39.63 +0000 UTC'}
 
 $ hetznerdns-cli record delete --name www --zone-name ermilov.org
+```
+
+## Development
+
+```
+# Create virtual environment for python3
+# Then inside the environment execute
+pip install -e .
+pip install -r requirements-dev.txt
+make test
 ```
