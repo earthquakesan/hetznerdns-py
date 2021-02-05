@@ -1,7 +1,10 @@
 test:
 	nose2 -v
 
-package-pipy:
+wipe-dist:
+	rm -rf dist/*
+
+package-pipy: wipe-dist
 	python setup.py sdist bdist_wheel
 	twine check dist/* 
 	
