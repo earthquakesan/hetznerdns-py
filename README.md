@@ -46,6 +46,7 @@ $ hetznerdns-cli record delete --name www --zone-name ermilov.org
 ```
 # Create virtual environment for python3
 # Then inside the environment execute
+git clone https://github.com/earthquakesan/hetznerdns-py && cd hetznerdns-py
 pip install -e .
 pip install -r requirements-dev.txt
 make test
