@@ -17,7 +17,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="hetznerdns",
-    version="1.0.1",
+    version="1.0.2",
     author="Ivan Ermilov",
     author_email="ivan.s.ermilov@gmail.com",
     description="An API and CLI client for Hetzner DNS service.",
