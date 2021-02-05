@@ -4,12 +4,12 @@ test:
 wipe-dist:
 	rm -rf dist/*
 
-package-pipy: wipe-dist
+package-pypi: wipe-dist
 	python setup.py sdist bdist_wheel
 	twine check dist/* 
 	
-publish-test-pipy: package-pipy
+publish-test-pypi: package-pypi
 	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
-publish-pipy: package-pipy
+publish-pypi: package-pypi
 	twine upload dist/*
