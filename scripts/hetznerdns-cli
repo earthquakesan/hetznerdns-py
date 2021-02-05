@@ -113,7 +113,7 @@ def record_get(name, zone_name):
 @click.option(
     "--ttl",
     default=3600,
-    type=click.STRING,
+    type=click.INT,
     help="TTL of the record."    
 )
 @click.option(
