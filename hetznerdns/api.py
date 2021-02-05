@@ -6,7 +6,6 @@ import requests.status_codes
 from .config import get_api_auth_token, HETZNER_DNS_ENDPOINT
 from .exceptions import *
 
-logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 class ApiRequest:
