@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import click
+from hetznerdns.exceptions import *
 from hetznerdns.api import *
 
 @click.group()
@@ -88,7 +89,10 @@ def records_list():
     help="Zone name of the record, e.g. example.com"
 )
 def record_get(name, zone_name):
-    click.echo(get_record_by_name(name, zone_name))
+    try:
+        click.echo(get_record_by_name(name, zone_name))
+    except RecordNotExistException:
+        click.echo("RecordNotExistException exception: record %s in zone %s does not exist!" % (name, zone_name,))
 
 @click.command(name="create")
 @click.option(
